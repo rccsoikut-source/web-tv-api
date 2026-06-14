@@ -1,0 +1,38 @@
+name: Auto Update Sports Schedule
+
+on:
+  schedule:
+    # প্রতিদিন বাংলাদেশ সময় দুপুর ১২টায় (GMT 6AM) এই রোবটটি নিজে নিজে চালু হবে
+    - cron: '0 6 * * *'
+  workflow_dispatch: # ইচ্ছা হলে তুমি নিজেও বাটন চেপে যেকোনো সময় এটি চালু করতে পারবে
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install Scraping Dependencies
+      run: |
+        pip install requests beautifulsoup4
+
+    - name: Run Scraping Script
+      run: |
+        # এখানে তোমার পাইথন স্ক্রিপ্ট রান হবে যা ইন্টারনেট থেকে লেটেস্ট লিঙ্ক নিয়ে আসবে
+        # আপাতত আমরা একটি ডামি কমান্ড রাখছি, পরে এখানে আসল স্ক্রিপ্ট বসবে
+        python -c "print('Scraping completed successfully!')" 
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "GitHub Action Bot"
+        git config --global user.email "actions@github.com"
+        git add sports_schedule.json
+        git commit -m "Auto-updated sports schedule" || exit 0
+        git push
