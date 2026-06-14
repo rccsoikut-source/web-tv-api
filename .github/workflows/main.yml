@@ -27,7 +27,7 @@ jobs:
       run: |
         # এখানে তোমার পাইথন স্ক্রিপ্ট রান হবে যা ইন্টারনেট থেকে লেটেস্ট লিঙ্ক নিয়ে আসবে
         # আপাতত আমরা একটি ডামি কমান্ড রাখছি, পরে এখানে আসল স্ক্রিপ্ট বসবে
-        python -c "print('Scraping completed successfully!')" 
+        python scraper.py 
 
     - name: Commit and Push Changes
       run: |
